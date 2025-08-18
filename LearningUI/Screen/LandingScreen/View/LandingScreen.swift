@@ -36,6 +36,7 @@ struct OnboardingContainerView: View {
              OnboardingControlsView()
             }
         }
+        .ignoresSafeArea()
     }
 }
 

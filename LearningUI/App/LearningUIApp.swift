@@ -12,7 +12,7 @@ struct LearningUIApp: App {
     var body: some Scene {
         WindowGroup {
 //            ContentView()
-            LandingScreen()
+            HomeView()
         }
     }
 }

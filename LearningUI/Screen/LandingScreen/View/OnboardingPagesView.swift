@@ -39,13 +39,13 @@ struct OnboardingPageView: View {
     
     var body: some View {
         VStack(spacing: 40) {
+        
             Spacer()
-            
             OnboardingIconView(
                 imageName: page.image,
                 backgroundColor: page.backgroundcolor
             )
-            .frame(width: 390, height: 390)
+            .frame(width: 390, height: 100)
             OnboardingTextContentView(
                 title: page.title,
                 description: page.discription
@@ -64,9 +64,11 @@ struct OnboardingIconView: View {
     var body: some View {
         ZStack {
             Image(imageName)
+            
                 .font(.system(size: 80))
             
         }
+        .ignoresSafeArea()
         .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 5)
     }
 }

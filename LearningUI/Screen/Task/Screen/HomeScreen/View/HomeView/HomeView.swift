@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct HomeView: View {
-    @ObservedObject var taskviewModel:TaskViewModel = TaskViewModel()
-    
+    @StateObject var taskviewModel:TaskViewModel = TaskViewModel() // stateobject and ObservedObject are similar but the difrence is wonership of taskviewmodel (viewModel)
     @State private var pickerFilter = ["Active","Completed"]
     @State private var defaultPickerSelection = "Active"
+    @State private var showAddTaskView: Bool = false
+    @State private var showTaskDetailView: Bool = false
+    @State private var selectedTask: Task = Task(id: 0, name: "", description: "", isCompleted: false, finishedDate: Date())
     
     var body: some View {
         
@@ -44,6 +46,10 @@ struct HomeView: View {
                             .foregroundStyle(.secondary)
                     }
                 }
+                .onTapGesture {
+                    selectedTask = task
+                    showTaskDetailView.toggle()
+                }
                 
             }
             .onAppear{
@@ -53,11 +59,18 @@ struct HomeView: View {
             .toolbar{
                 ToolbarItem(placement: .navigationBarTrailing){
                     Button{
-                        print("Add")
+                        showAddTaskView = true
                     } label:{
                         Image(systemName: "plus")
                     }
                 }
+            }
+            .sheet(isPresented: $showAddTaskView){
+                AddTaskView(viewModel: taskviewModel, showAddTask: $showAddTaskView)
+                
+            }
+            .sheet(isPresented: $showTaskDetailView){
+                TaskDetailsView(viewModel: taskviewModel, selectedTask: $selectedTask, show: $showTaskDetailView)
             }
         }
         
