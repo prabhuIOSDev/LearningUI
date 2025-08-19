@@ -29,18 +29,28 @@ final class TaskViewModel:ObservableObject {
     func updateTask(task:Task) ->Bool{
         
         if let index = tempTasks.firstIndex(where: {$0.id == task.id}){
-           
+            
             tempTasks[index].name = task.name
             tempTasks[index].description = task.description
             tempTasks[index].isCompleted = task.isCompleted
             tempTasks[index].finishedDate = task.finishedDate
+            return true
+        }
+        return false
+        
+    }
+    
+    // delete task
+    func deleteTask(task:Task) ->Bool{
+        
+        if let index = tempTasks.firstIndex(where: {$0.id == task.id}){
+            tempTasks.remove(at: index)
             
             return true
         }
         
         
         return false
-        
     }
     
 }

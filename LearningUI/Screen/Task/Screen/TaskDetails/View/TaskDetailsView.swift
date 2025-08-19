@@ -11,6 +11,7 @@ struct TaskDetailsView: View {
     @ObservedObject var viewModel : TaskViewModel
     @Binding var selectedTask : Task
     @Binding var show : Bool
+    @Binding var refreshTaskList : Bool
     
     
     var body: some View {
@@ -27,7 +28,12 @@ struct TaskDetailsView: View {
                 }
                 
                 Section{
-                    Button{} label:{
+                    Button{
+                        if (viewModel.deleteTask(task: selectedTask)){
+                            show.toggle()
+                            refreshTaskList.toggle()
+                        }
+                    } label:{
                         Text("Delete")
                             .font(.headline)
                             .foregroundStyle(.red)
@@ -46,7 +52,10 @@ struct TaskDetailsView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing){
                     Button(action: {
-                    
+                        if (viewModel.updateTask(task: selectedTask)){
+                            show.toggle()
+                            refreshTaskList.toggle()
+                        }
                     }){
                         Text("Update")
                     }
@@ -58,5 +67,5 @@ struct TaskDetailsView: View {
 }
 
 #Preview {
-    TaskDetailsView(viewModel: TaskViewModel(), selectedTask: .constant(Task.createMockTask().first!), show: .constant(false))
+    TaskDetailsView(viewModel: TaskViewModel(), selectedTask: .constant(Task.createMockTask().first!), show: .constant(false), refreshTaskList: .constant(false))
 }
