@@ -16,7 +16,16 @@ struct AddTaskView: View {
     @State private var showAlert = false
     
     
-    
+    var datePickerRange: ClosedRange<Date>{
+        let calender = Calendar.current
+        let currentDateComponents = calender.dateComponents([.day,.month,.year,.hour,.minute],from: Date())
+        
+        let startingDate = DateComponents(year:currentDateComponents.year,month: currentDateComponents.month,day: currentDateComponents.day,hour: currentDateComponents.hour,minute: currentDateComponents.minute)
+        
+        let endingDate = DateComponents(year:2026,month:12,day: 31)
+        
+        return calender.date(from: startingDate)!...calender.date(from: endingDate)!
+    }
     
     var body: some View {
         
@@ -29,7 +38,7 @@ struct AddTaskView: View {
                 }
                 
                 Section("Task Date / time  "){
-                    DatePicker("Task Date", selection: $taskToAdd.finishedDate)
+                    DatePicker("Task Date", selection: $taskToAdd.finishedDate,in: datePickerRange)
                 }
             }
             .navigationTitle("Add Task")
@@ -80,7 +89,7 @@ struct AddTaskView: View {
         
     }
     
-    // add function 
+    // add function
   private  func addaTask(){
         if (viewModel.addTask(task: taskToAdd)){
             showAddTask.toggle()
