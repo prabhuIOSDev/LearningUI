@@ -8,8 +8,24 @@
 import SwiftUI
 
 struct ProductListView: View {
+    let viewModel = ProductViewModel()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack{
+            List(viewModel.product){ product in
+                ProductRowCell(Product: product)
+                
+                    .listRowSeparator(.automatic)
+            
+                
+            }
+            .listStyle(.plain)
+            .navigationTitle( "Product List")
+                
+        }
+        .task {
+        await viewModel.fetchProducts()
+        }
     }
 }
 

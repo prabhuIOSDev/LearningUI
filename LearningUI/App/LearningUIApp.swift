@@ -12,7 +12,8 @@ struct LearningUIApp: App {
     var body: some Scene {
         WindowGroup {
 //            ContentView()
-            HomeView()
+//            HomeView()
+            ProductListView()
         }
     }
 }

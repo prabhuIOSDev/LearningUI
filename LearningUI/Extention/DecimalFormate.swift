@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+extension Double{
+    var oneDecimalPlace: String{
+        return String(format: "%.1f", self)
+    }
+}

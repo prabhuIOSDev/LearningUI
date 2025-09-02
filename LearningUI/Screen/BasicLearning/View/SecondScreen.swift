@@ -8,11 +8,31 @@
 import SwiftUI
 
 struct SecondScreen: View {
+    @Binding var path: NavigationPath
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack{
+            Image(systemName: "bell")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 250, height: 250)
+            Text("Second screen")
+                .font(.title)
+                .fontWeight(.semibold)
+            Button{
+                path.removeLast()
+            } label: {
+                ContinueButton(string: "Go to Home", color: .accentColor)
+            }
+            
+            
+            
+            
+        }
+        
+        .navigationTitle("Notification")
     }
 }
 
 #Preview {
-    SecondScreen()
+    SecondScreen(path: .constant(NavigationPath()))
 }
