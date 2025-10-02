@@ -11,6 +11,7 @@ struct ProductRowCell: View {
     
     let Product: Product
     var body: some View {
+    
         HStack(spacing:15){
             if let url = URL(string:  Product.image){
                 AsyncImage(url: url) { image in
@@ -74,7 +75,15 @@ struct ProductRowCell: View {
             }
         }
         .padding()
+        .background(BackgroundView().opacity(0.6))
+        .clipShape(RoundedRectangle(cornerRadius: 8))
+        .overlay(
+               RoundedRectangle(cornerRadius: 10)
+                .stroke(Color.blue.opacity(0.5), lineWidth: 1)
+           )
+        
     }
+
 }
 
 #Preview {

@@ -13,16 +13,22 @@ struct ProductListView: View {
     var body: some View {
         NavigationStack{
             List(viewModel.product){ product in
-                ProductRowCell(Product: product)
-                
-                    .listRowSeparator(.automatic)
-            
-                
+                NavigationLink(destination: ProductDetailsView(product: product)){
+                    // UI view
+                    ProductRowCell(Product: product)
+                      
+                       
+                }
+                .buttonStyle(.plain )
+                .listRowSeparator(.hidden)
             }
             .listStyle(.plain)
             .navigationTitle( "Product List")
+            
+            .background(.gray.opacity(0.2))
                 
         }
+        
         .task {
         await viewModel.fetchProducts()
         }

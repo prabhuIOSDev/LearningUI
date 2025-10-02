@@ -8,11 +8,28 @@
 import SwiftUI
 
 struct AnimatedGradientBorder: View {
+    var cornerRadius: CGFloat
+    var lineWidth: CGFloat
+    @State private var animate = false
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        RoundedRectangle(cornerRadius: cornerRadius)
+            .strokeBorder(
+                AngularGradient(
+                    gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .red]),
+                    center: .center,
+                    angle: .degrees(animate ? 360 : 0)
+                ),
+                lineWidth: lineWidth
+            )
+            .onAppear {
+                withAnimation(.linear(duration: 5).repeatForever(autoreverses: false)) {
+                    animate.toggle()
+                }
+            }
     }
 }
 
 #Preview {
-    AnimatedGradientBorder()
+    AnimatedGradientBorder(cornerRadius: 12, lineWidth: 4)
 }
